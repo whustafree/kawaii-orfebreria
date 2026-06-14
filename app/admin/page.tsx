@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 import type { Product } from "@/lib/database.types";
 
 export default function AdminDashboard() {
@@ -11,7 +11,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     async function load() {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const { data } = await supabase
         .from("products")
         .select("*")
@@ -35,7 +35,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id: number) => {
     if (!confirm("¿Estás segura de eliminar este producto?")) return;
 
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from("products").delete().eq("id", id);
 
     if (!error) {

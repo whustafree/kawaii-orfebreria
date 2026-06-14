@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 
 interface ImageUploadProps {
   currentImage?: string | null;
@@ -37,7 +37,7 @@ export default function ImageUpload({
     setUploading(true);
 
     try {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const fileExt = file.name.split(".").pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `products/${fileName}`;

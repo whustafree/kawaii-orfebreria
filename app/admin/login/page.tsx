@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
 
       // Timeout after 10 seconds
       const timeoutPromise = new Promise<null>((_, reject) =>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 import ImageUpload from "@/components/ImageUpload";
 import { CATEGORIES } from "@/lib/database.types";
 
@@ -40,8 +40,8 @@ export default function NuevoProductoPage() {
     }
 
     try {
-      const supabase = createClient();
-      const { error: insertError } = await supabase.from("products").insert({
+      const supabase = getSupabaseClient();
+      const { error: insertError } = await (supabase.from("products") as any).insert({
         name: form.name,
         description: form.description || null,
         materials: form.materials || null,
@@ -49,7 +49,7 @@ export default function NuevoProductoPage() {
         category: form.category,
         image_url: imageUrl || null,
         is_active: true,
-      });
+      } as any);
 
       if (insertError) throw insertError;
       router.push("/admin/productos");

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 import ProductCard from "@/components/ProductCard";
 import type { Product, Category } from "@/lib/database.types";
 import { CATEGORIES, WHATSAPP_NUMBER } from "@/lib/database.types";
@@ -16,7 +16,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function loadProducts() {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const { data } = await supabase
         .from("products")
         .select("*")

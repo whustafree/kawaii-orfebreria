@@ -1,17 +1,13 @@
 "use client";
 
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "./database.types";
 
-interface CookieOptions {
-  path?: string;
-  maxAge?: number;
-  domain?: string;
-  sameSite?: "strict" | "lax" | "none";
-  secure?: boolean;
-  httpOnly?: boolean;
-}
+let _client: ReturnType<typeof createClient<Database>> | null = null;
 
-export function createClient() {
+export function getSupabaseClient() {
+  if (_client) return _client;
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -22,30 +18,14 @@ export function createClient() {
     );
   }
 
-  return createBrowserClient(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      get(name: string) {
-        if (typeof document === "undefined") return null;
-        const row = document.cookie
-          .split("; ")
-          .find((r) => r.startsWith(`${name}=`));
-        if (!row) return null;
-        return row.substring(name.length + 1);
-      },
-      set(name: string, value: string, options: CookieOptions) {
-        if (typeof document === "undefined") return;
-        const parts = [`${name}=${value}`];
-        if (options.path) parts.push(`path=${options.path}`);
-        if (options.maxAge) parts.push(`max-age=${options.maxAge}`);
-        if (options.domain) parts.push(`domain=${options.domain}`);
-        if (options.sameSite) parts.push(`samesite=${options.sameSite}`);
-        if (options.secure) parts.push("secure");
-        document.cookie = parts.join("; ");
-      },
-      remove(name: string, options: CookieOptions) {
-        if (typeof document === "undefined") return;
-        document.cookie = `${name}=; max-age=0; path=${options?.path || "/"}`;
-      },
+  _client = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+      storageKey: "kawaii-auth",
     },
   });
+
+  return _client;
 }

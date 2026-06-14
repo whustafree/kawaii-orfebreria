@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { createClient } from "@/lib/supabase-client";
+import { getSupabaseClient } from "@/lib/supabase-client";
 import ImageUpload from "@/components/ImageUpload";
 import { CATEGORIES } from "@/lib/database.types";
 import type { Product } from "@/lib/database.types";
@@ -36,12 +36,13 @@ export default function EditarProductoPage() {
         return;
       }
 
-      const supabase = createClient();
-      const { data } = await supabase
+      const supabase = getSupabaseClient();
+      const result = await supabase
         .from("products")
         .select()
         .eq("id", productId)
         .single();
+      const data = result.data as any;
 
       if (data) {
         setForm({
@@ -84,7 +85,7 @@ export default function EditarProductoPage() {
     }
 
     try {
-      const supabase = createClient();
+      const supabase = getSupabaseClient();
       const idStr = params.id;
       if (!idStr || Array.isArray(idStr)) {
         setError("ID de producto inválido");
@@ -98,8 +99,8 @@ export default function EditarProductoPage() {
         return;
       }
 
-      const { error: updateError } = await supabase
-        .from("products")
+      const { error: updateError } = await (supabase
+        .from("products") as any)
         .update({
           name: form.name,
           description: form.description || null,
@@ -109,7 +110,7 @@ export default function EditarProductoPage() {
           image_url: imageUrl || null,
           is_active: form.is_active,
           updated_at: new Date().toISOString(),
-        })
+        } as any)
         .eq("id", productId);
 
       if (updateError) throw updateError;
