@@ -1,61 +1,23 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
-  try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const { pathname } = request.nextUrl;
 
-    // If env vars aren't set, skip middleware functionality
-    if (!supabaseUrl || !supabaseAnonKey) {
-      return NextResponse.next({ request });
-    }
+  // Only protect /admin routes
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
+    // Check for auth session cookie (set by Supabase on login)
+    const hasSession = request.cookies.has("sb-ntagjuwyufomvogkrxqv-auth-token");
 
-    let supabaseResponse = NextResponse.next({ request });
-
-    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(
-          cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]
-        ) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    });
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    // Protect admin routes
-    if (
-      !user &&
-      request.nextUrl.pathname.startsWith("/admin") &&
-      !request.nextUrl.pathname.startsWith("/admin/login")
-    ) {
+    if (!hasSession) {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
       return NextResponse.redirect(url);
     }
-
-    return supabaseResponse;
-  } catch {
-    // If middleware fails, just allow the request to proceed
-    return NextResponse.next({ request });
   }
+
+  return NextResponse.next({ request });
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/admin/:path*"],
 };
