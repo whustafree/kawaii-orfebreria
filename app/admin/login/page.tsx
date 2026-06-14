@@ -18,14 +18,34 @@ export default function AdminLoginPage() {
 
     try {
       const supabase = createClient();
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
+
+      // Timeout after 10 seconds
+      const timeoutPromise = new Promise<null>((_, reject) =>
+        setTimeout(() => reject(new Error("Tiempo de espera agotado. Revisa tu conexión o las credenciales de Supabase.")), 10000)
+      );
+
+      const loginPromise = supabase.auth.signInWithPassword({
+        email: email.trim(),
         password,
       });
 
-      if (authError) throw authError;
+      const result = await Promise.race([loginPromise, timeoutPromise]);
+
+      if (!result) {
+        throw new Error("Error inesperado al iniciar sesión");
+      }
+
+      const { error: authError } = result as Awaited<ReturnType<typeof supabase.auth.signInWithPassword>>;
+
+      if (authError) {
+        if (authError.message.includes("Invalid login credentials")) {
+          throw new Error("Email o contraseña incorrectos");
+        }
+        throw authError;
+      }
+
+      // Successful login - redirect to admin
       router.push("/admin");
-      router.refresh();
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Error al iniciar sesión"
@@ -40,8 +60,8 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <span className="text-4xl text-gold">✦</span>
-          <h1 className="font-heading text-2xl font-bold text-text mt-2">
+          <div className="text-4xl text-gold mb-2">✦</div>
+          <h1 className="font-heading text-2xl font-bold text-text">
             Kawaii Orfebrería
           </h1>
           <p className="text-sm text-text-lighter">Panel de Administración</p>
@@ -58,7 +78,7 @@ export default function AdminLoginPage() {
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 text-xs rounded-xl px-4 py-3 mb-4">
-              {error}
+              ⚠️ {error}
             </div>
           )}
 
@@ -74,6 +94,7 @@ export default function AdminLoginPage() {
                 placeholder="tu@email.com"
                 required
                 className="input-field"
+                autoFocus
               />
             </div>
             <div>
@@ -94,19 +115,30 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full justify-center mt-6 disabled:opacity-50"
+            className="btn-primary w-full justify-center mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Entrando..." : "✦ Entrar al Panel"}
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                Entrando...
+              </span>
+            ) : (
+              "✦ Entrar al Panel"
+            )}
           </button>
 
-          <p className="text-[10px] text-text-lighter text-center mt-4">
-            Para crear una cuenta, ve a Supabase Authentication &gt; Users &gt;
-            Add User
-          </p>
+          {loading && (
+            <p className="text-[10px] text-text-lighter text-center mt-3">
+              Conectando con Supabase...
+            </p>
+          )}
         </form>
 
         <div className="text-center mt-6">
-          <a href="/" className="text-xs text-text-lighter hover:text-primary transition-colors">
+          <a
+            href="/"
+            className="text-xs text-text-lighter hover:text-primary transition-colors"
+          >
             ← Volver al sitio web
           </a>
         </div>
