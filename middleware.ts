@@ -1,21 +1,21 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  // Only apply to /admin routes (excluding login)
+  if (
+    request.nextUrl.pathname.startsWith("/admin") &&
+    !request.nextUrl.pathname.startsWith("/admin/login")
+  ) {
+    // Check for Supabase session cookie
+    const sbCookie = request.cookies.has("sb-ntagjuwyufomvogkrxqv-auth-token");
 
-  // Only protect /admin routes
-  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
-    // Check for auth session cookie (set by Supabase on login)
-    const hasSession = request.cookies.has("sb-ntagjuwyufomvogkrxqv-auth-token");
-
-    if (!hasSession) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/admin/login";
-      return NextResponse.redirect(url);
+    if (!sbCookie) {
+      const loginUrl = new URL("/admin/login", request.url);
+      return NextResponse.redirect(loginUrl);
     }
   }
 
-  return NextResponse.next({ request });
+  return NextResponse.next();
 }
 
 export const config = {
