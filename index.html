@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Kawaii Orfebrería — Joyas Artesanales Anime</title>
+  <meta name="description" content="Orfebrería femenina con estilo anime y kawaii. Joyas artesanales hechas a mano en Chile. Anillos, collares, pulseras, aros y llaveros.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">
+          <span class="logo-icon">✦</span>
+          <span class="logo-text">Kawaii Orfebrería</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav" id="nav">
+          <ul class="nav-list">
+            <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+            <li><a href="#catalogo" class="nav-link">Catálogo</a></li>
+            <li><a href="#about" class="nav-link">Sobre Mí</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg">
+      <div class="hero-particles">
+        <span class="particle" style="top:15%;left:10%;animation-delay:0s">✦</span>
+        <span class="particle" style="top:25%;right:15%;animation-delay:0.5s">✧</span>
+        <span class="particle" style="top:60%;left:5%;animation-delay:1s">♥</span>
+        <span class="particle" style="top:70%;right:10%;animation-delay:1.5s">☆</span>
+        <span class="particle" style="top:40%;left:20%;animation-delay:2s">✿</span>
+        <span class="particle" style="top:80%;left:30%;animation-delay:0.8s">✦</span>
+        <span class="particle" style="top:20%;right:25%;animation-delay:1.2s">♡</span>
+        <span class="particle" style="top:65%;right:30%;animation-delay:1.8s">✧</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">✦ Orfebrería Femenina ✦</div>
+        <h1 class="hero-title">
+          <span class="title-line">Artesanía Kawaii</span>
+          <span class="title-line accent">Hecha a Mano</span>
+        </h1>
+        <p class="hero-subtitle">
+          Joyas únicas con alma anime ✿<br>
+          Cada pieza cuenta una historia mágica
+        </p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary">
+            ✦ Explorar Catálogo
+          </a>
+          <a href="#contacto" class="btn btn-secondary">
+            💬 Contactar
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATEGORIES STRIP ========== -->
+  <section class="categories-strip">
+    <div class="container">
+      <div class="strip-inner">
+        <div class="strip-item" data-category="all">
+          <span class="strip-icon">✦</span>
+          <span class="strip-label">Todo</span>
+        </div>
+        <div class="strip-item" data-category="anillos">
+          <span class="strip-icon">💍</span>
+          <span class="strip-label">Anillos</span>
+        </div>
+        <div class="strip-item" data-category="collares">
+          <span class="strip-icon">📿</span>
+          <span class="strip-label">Collares</span>
+        </div>
+        <div class="strip-item" data-category="pulseras">
+          <span class="strip-icon">✨</span>
+          <span class="strip-label">Pulseras</span>
+        </div>
+        <div class="strip-item" data-category="aros">
+          <span class="strip-icon">💎</span>
+          <span class="strip-label">Aros</span>
+        </div>
+        <div class="strip-item" data-category="llaveros">
+          <span class="strip-icon">🔑</span>
+          <span class="strip-label">Llaveros</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATALOG ========== -->
+  <section class="catalog" id="catalogo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">✦ Catálogo ✦</span>
+        <h2 class="section-title">Nuestras <span class="accent">Creaciones</span></h2>
+        <p class="section-desc">Cada joya está hecha a mano con amor y dedicación, fusionando la magia del anime con la tradición orfebre chilena.</p>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">✦ Todo</button>
+        <button class="filter-btn" data-filter="anillos">💍 Anillos</button>
+        <button class="filter-btn" data-filter="collares">📿 Collares</button>
+        <button class="filter-btn" data-filter="pulseras">✨ Pulseras</button>
+        <button class="filter-btn" data-filter="aros">💎 Aros</button>
+        <button class="filter-btn" data-filter="llaveros">🔑 Llaveros</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Generated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <div class="about-image-frame">
+            <div class="about-image-placeholder">
+              <span class="placeholder-icon">✿</span>
+              <span class="placeholder-text">Tu foto aquí</span>
+            </div>
+          </div>
+          <div class="about-floating-tag">✦ Artesana ✦</div>
+        </div>
+        <div class="about-content">
+          <span class="section-tag">✿ Sobre Mí ✿</span>
+          <h2 class="section-title">Creando <span class="accent">Magia</span> en Cada Pieza</h2>
+          <p class="about-text">
+            Soy una orfebre chilena apasionada por el arte anime y la cultura kawaii. 
+            Cada joya que creo es una pieza única, fusionando técnicas tradicionales de 
+            orfebrería con diseños inspirados en el universo anime.
+          </p>
+          <p class="about-text">
+            Trabajo con plata 925, resinas de colores, zirconias y materiales 
+            cuidadosamente seleccionados para crear piezas que cuentan historias. 
+            Mi taller está en Chile y cada pedido se hace con amor y dedicación.
+          </p>
+          <div class="about-features">
+            <div class="feature">
+              <span class="feature-icon">🖐️</span>
+              <span class="feature-text">Hecho a mano</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon">🇨🇱</span>
+              <span class="feature-text">Artesanía chilena</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon">♻️</span>
+              <span class="feature-text">Materiales éticos</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon">🎨</span>
+              <span class="feature-text">Diseño único</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / FAQ ========== -->
+  <section class="contact" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💬 Contacto</span>
+        <h2 class="section-title">¿Te gusta <span class="accent">alguna pieza</span>?</h2>
+        <p class="section-desc">Cada joya es personalizable. Escríbeme por WhatsApp y la hacemos realidad ✨</p>
+      </div>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-card-icon">💬</div>
+          <h3>Consultas por WhatsApp</h3>
+          <p>Todos los precios y disponibilidad se consultan directamente por WhatsApp. Respondo en máximo 24 hrs.</p>
+          <a href="#" class="btn btn-primary" id="contactWhatsAppBtn" target="_blank" rel="noopener noreferrer">
+            ✦ Escribir al WhatsApp
+          </a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">🎀</div>
+          <h3>Personalización</h3>
+          <p>¿Quieres un diseño único? Cuéntame tu idea y la creamos juntas. Tu personaje favorito, tus colores, tu estilo.</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">🇨🇱</div>
+          <h3>Envíos a Todo Chile</h3>
+          <p>Hacemos envíos a todo el país. También puedes retirar en persona si estás en la Región Metropolitana.</p>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq">
+        <h3 class="faq-title">Preguntas Frecuentes</h3>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Cómo hago un pedido?</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Selecciona la pieza que te guste del catálogo y haz clic en "Consultar por WhatsApp". Te responderé con los detalles de precio, disponibilidad y tiempo de entrega.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Hacen envíos internacionales?</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Por ahora solo realizamos envíos dentro de Chile. ¡Pronto abriremos envíos internacionales!</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Los productos son personalizables?</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>¡Sí! Me encanta crear piezas únicas. Contáctame por WhatsApp con tu idea y la hacemos realidad. Puedes elegir colores, charms y hasta personajes específicos.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>¿Cuál es el tiempo de entrega?</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Los productos hechos a mano tardan entre 5 a 12 días hábiles, dependiendo de la complejidad del diseño. Te confirmaré el tiempo exacto al hacer tu pedido.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-icon">✦</span>
+            <span class="logo-text">Kawaii Orfebrería</span>
+          </a>
+          <p class="footer-desc">Joyas artesanales con alma anime ✿ Hechas a mano en Chile con amor.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Categorías</h4>
+          <ul>
+            <li><a href="#" onclick="filterCategory('anillos')">Anillos</a></li>
+            <li><a href="#" onclick="filterCategory('collares')">Collares</a></li>
+            <li><a href="#" onclick="filterCategory('pulseras')">Pulseras</a></li>
+            <li><a href="#" onclick="filterCategory('aros')">Aros</a></li>
+            <li><a href="#" onclick="filterCategory('llaveros')">Llaveros</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4>Redes</h4>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram">📸</a>
+            <a href="#" class="social-link" aria-label="WhatsApp">💬</a>
+            <a href="#" class="social-link" aria-label="TikTok">🎵</a>
+            <a href="#" class="social-link" aria-label="Pinterest">📌</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Kawaii Orfebrería — Hecho con ♡ en Chile</p>
+        <p class="footer-corsaga">✿ Diseños originales protegidos</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCROLL TO TOP ========== -->
+  <button class="scroll-top" id="scrollTop" aria-label="Volver arriba">↑</button>
+
+  <script src="js/products.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
